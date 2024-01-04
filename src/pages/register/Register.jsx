@@ -4,7 +4,7 @@
 import { HiMiniViewfinderCircle } from "react-icons/hi2";
 import { CustomButton, Loading, TextInput } from "../../components";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { BgImage } from "../../assets";
@@ -20,6 +20,7 @@ const Register = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   // dispatch action from state when fro user login
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // handle the entire form data and error state
   const {
     register,
@@ -46,7 +47,8 @@ const Register = () => {
       } else {
         setErrMsg(res);
         setTimeout(() => {
-          window.location.replace("/login");
+          // window.location.replace("/login");
+          navigate("/login");
         }, 5000);
       }
 
