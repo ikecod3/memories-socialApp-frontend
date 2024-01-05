@@ -4,18 +4,6 @@ import { Home, Login, Profile, Register, ResetPassword } from "./pages/index";
 import { useSelector } from "react-redux";
 import AppLayout from "./layout/AppLayout";
 
-function Layout() {
-  // fecth the user from state
-  const { user } = useSelector((state) => state.user);
-  const location = useLocation();
-  // console.log(user);
-
-  return user?.token ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/login" state={{ from: location }} replace />
-  );
-}
 const App = () => {
   const { theme } = useSelector((state) => state.theme);
 
