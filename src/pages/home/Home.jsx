@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -14,7 +15,6 @@ import {
   TextInput,
   UsersPostCard,
 } from "../../components";
-// import { suggest, requests } from "../../assets/data"; dummy data
 import { NoProfile } from "../../assets";
 import { BsFiletypeGif, BsPersonFillAdd } from "react-icons/bs";
 import { BiImages, BiSolidVideo } from "react-icons/bi";

@@ -193,7 +193,7 @@ const Register = () => {
         </div>
         {/* --------------- right area --------------------- */}
 
-        <div className="hidden w-1/2 h-auto lg:flex flex-col items-center justify-end bg-[#4044a9] bg-opacity-50 bg-cover bg-center bg-no-repeat bg-blend-darken bg-[url('src/assets/reg.png')]">
+        <div className="hidden w-1/2 h-auto lg:flex flex-col items-center justify-end bg-[#4044a9] bg-opacity-50 bg-cover bg-center bg-no-repeat bg-blend-darken bg-[url('/assets/reg.png')]">
           {/* image and icons div area */}
 
           {/* -----------text below picture area-------------- */}
