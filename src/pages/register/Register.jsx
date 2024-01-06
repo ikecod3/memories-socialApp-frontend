@@ -199,7 +199,7 @@ const Register = () => {
           {/* -----------text below picture area-------------- */}
 
           <div className="mb-40 text-center z-30">
-            <p className="text-[#231c62] font-semibold text-2xl">
+            <p className="text-[#000] font-semibold text-2xl">
               Connect with friends & share memories
             </p>
             <span className="text-base text-[black]/60">
