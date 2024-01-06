@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 import {
   AdvertCard,
   CustomButton,
@@ -25,7 +26,6 @@ import {
   handleFileUpload,
   likePost,
   sendFriendRequest,
-  viewedUserProfile,
 } from "../../utils";
 import { UserLogin } from "../../reduxSlice/userSlice";
 
@@ -33,8 +33,10 @@ const Home = () => {
   const { user, edit } = useSelector((state) => state.user);
   const { posts } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
-  // temporary state for friends
+  // state to set and update friend request list
   const [friendRequest, setFriendRequest] = useState([]);
+
+  // state to set and update suggested friends list
   const [suggestedFriends, setSuggestedFriends] = useState([]);
 
   // files upload state
@@ -116,6 +118,10 @@ const Home = () => {
   const handleDeletePost = async (id) => {
     // delete the post
     await deletePost(id, user.token);
+    // toast message to confirm post deletion was successful
+    toast.success("post deleted successfully", {
+      position: "top-center",
+    });
     // refresh the available pot
     await handleFetchPost();
   };
@@ -152,6 +158,12 @@ const Home = () => {
     try {
       // perform the friendreqeust action using sendFriendRequest from utils
       const res = await sendFriendRequest(user.token, id);
+
+      // toast message to confirm post deletion was successful
+      toast.success("friend request sent", {
+        duration: 2000,
+        position: "top-right",
+      });
       // reloads the suggested friends list with new data
       await fetchSuggestedFriends();
     } catch (error) {
@@ -166,6 +178,11 @@ const Home = () => {
         token: user?.token,
         method: "POST",
         data: { rid: id, status },
+      });
+      // toast message to confirm post deletion was successful
+      toast("friend request accepted", {
+        duration: 2000,
+        position: "top-right",
       });
       // update the friendrequest state with the response data
       setFriendRequest(res?.data);
@@ -193,7 +210,7 @@ const Home = () => {
     <>
       <div className="home w-full px-0 lg:px-10 pb-20 2xl:px-40 bg-bgColor lg:rounded-lg h-screen overflow-hidden ">
         {/* home content wrapper  */}
-
+        <Toaster />
         <div className="w-full flex gap-2 lg:gap-4 pt-5 pb-10 h-full">
           {/* LEFT SIDE CONTENT */}
           <div className="hidden w-1/3 lg:w-1/4 h-full md:flex flex-col gap-4 overflow-auto">
