@@ -118,15 +118,15 @@ const ProfileCard = ({ user }) => {
           <p className="text-ascent-1 text-lg font-semibold">Social Profile</p>
           {/* iconsssssssssssssssss */}
 
-          <div className="flex gap-2 items-center text-ascent-2">
+          <div className="flex gap-2 items-center text-ascent-2 cursor-pointer">
             <BsInstagram className="text-xl text-ascent-1" />
             <span>Instagram</span>
           </div>
-          <div className="flex gap-2 items-center text-ascent-2">
+          <div className="flex gap-2 items-center text-ascent-2 cursor-pointer">
             <FaTwitterSquare className="text-xl text-ascent-1" />
             <span>X (Twitter)</span>
           </div>
-          <div className="flex gap-2 items-center text-ascent-2">
+          <div className="flex gap-2 items-center text-ascent-2 cursor-pointer">
             <FaFacebookSquare className="text-xl text-ascent-1" />
             <span>Facebook</span>
           </div>
