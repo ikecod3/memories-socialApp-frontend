@@ -8,7 +8,6 @@ import {
   EditProfile,
   FriendsCard,
   Loading,
-  NavBar,
   ProfileCard,
   UsersPostCard,
 } from "../../components";
@@ -93,8 +92,8 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      {/* MODAL CLASS */}
 
+      {/* MODAL CLASS */}
       {/* show modal when is edit is set to true - edit is trigger from the user state. */}
       {edit && <EditProfile />}
     </>
