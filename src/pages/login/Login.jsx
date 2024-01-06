@@ -30,7 +30,6 @@ const Login = () => {
   });
 
   const submitLoginData = async (data) => {
-    console.log("Login should be working here");
     setIsSubmitting(true);
     try {
       const res = await apiRequest({
