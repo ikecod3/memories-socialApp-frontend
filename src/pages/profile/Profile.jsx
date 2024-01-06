@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   AdvertCard,
+  EditProfile,
   FriendsCard,
   Loading,
   NavBar,
@@ -16,7 +17,7 @@ import { deletePost, fetchPosts, getUserInfo, likePost } from "../../utils";
 const Profile = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  const { user, edit } = useSelector((state) => state.user);
   const { posts } = useSelector((state) => state.posts);
 
   const [userInfo, setUserInfo] = useState(user);
@@ -92,6 +93,10 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      {/* MODAL CLASS */}
+
+      {/* show modal when is edit is set to true - edit is trigger from the user state. */}
+      {edit && <EditProfile />}
     </>
   );
 };
