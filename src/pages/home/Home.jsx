@@ -17,7 +17,7 @@ import {
 } from "../../components";
 import { NoProfile } from "../../assets";
 import { BsFiletypeGif, BsPersonFillAdd } from "react-icons/bs";
-import { BiImages, BiSolidVideo } from "react-icons/bi";
+import { BiCheck, BiCheckDouble, BiImages, BiSolidVideo } from "react-icons/bi";
 import {
   apiRequest,
   deletePost,
@@ -269,6 +269,8 @@ const Home = () => {
                     accept=".jpg, .png, .jpeg"
                   />
                   <BiImages />
+                  {/* show checked icon when an image is selected */}
+                  {file && <BiCheckDouble color="green" size={30} />}
                   <span>Image</span>
                 </label>
                 {/* video upload icon */}
