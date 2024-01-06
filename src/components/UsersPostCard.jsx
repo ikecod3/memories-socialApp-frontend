@@ -8,7 +8,6 @@ import { BiComment, BiLike, BiSolidLike } from "react-icons/bi";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import CommentForm from "./CommentForm";
 import Loading from "./Loading";
-// import { postComments } from "../assets/data";
 import ReplyCard from "./ReplyCard";
 import { getPostComments, isImage, isVideo } from "../utils";
 
@@ -87,7 +86,7 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
             ))}
         </p>
 
-        {/* optional chaining  to check if the post has an image before attempting to render an <img> element. 
+        {/* optional chaining to check if the post has an image before attempting to render an <img> element. 
         If the post.image property is truthy, the image is rendered with the specified 
         */}
         {post?.image && (

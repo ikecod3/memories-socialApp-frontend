@@ -25,6 +25,7 @@ import {
   handleFileUpload,
   likePost,
   sendFriendRequest,
+  viewedUserProfile,
 } from "../../utils";
 import { UserLogin } from "../../reduxSlice/userSlice";
 
@@ -44,8 +45,7 @@ const Home = () => {
   const [isPosting, setIsPosting] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // handle form error state
-
+  // react hook handle entire form and error state
   const {
     register,
     handleSubmit,
@@ -158,6 +158,7 @@ const Home = () => {
       console.log(error);
     }
   };
+
   const acceptFriendRequest = async (id, status) => {
     try {
       const res = await apiRequest({
@@ -175,10 +176,9 @@ const Home = () => {
   const getUser = async () => {
     // invoke the getUserInfo fron utils and pass the user token
     const res = await getUserInfo(user?.token);
-    // console.log(res);
+
     const newData = { token: user?.token, ...res };
     dispatch(UserLogin(newData));
-    // console.log(newData);
   };
 
   useEffect(() => {

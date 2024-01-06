@@ -123,7 +123,7 @@ export const sendFriendRequest = async (token, id) => {
   }
 };
 
-export const viewUserProfile = async (token, id) => {
+export const viewedUserProfile = async (token, id) => {
   try {
     const res = await apiRequest({
       url: "/users/profile-view",
