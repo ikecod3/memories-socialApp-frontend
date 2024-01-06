@@ -77,6 +77,7 @@ const Login = () => {
             className="py-8 flex flex-col gap-5"
             onSubmit={handleSubmit(submitLoginData)}
           >
+            {/* custom Text input is here to achieve re-useability and easy styling of component and similar content */}
             {/* email input */}
             <TextInput
               name="email"

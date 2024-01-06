@@ -43,7 +43,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="w-full px-0 lg:px-10 2xl:px-40 shadow-xl">
+    <div className="w-full px-0 lg:px-10 2xl:px-40 shadow-lg sticky top-0 z-50 ">
       <div className="navBar mx-auto w-full bg-primary flex items-center justify-between py-3 md:py-4 px-4">
         <Link to="/" className="flex gap-2 items-center">
           <div className="p-1 md:p-2 bg-[#065ad8] rounded text-white">

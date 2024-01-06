@@ -50,17 +50,18 @@ const Profile = () => {
   }, [id]);
   return (
     <>
-      <div className="home w-full px-0 lg:px-10 pb-20 2xl:px-40 bg-bgColor lg:rounded-lg h-screen overflow-hidden">
-        <div className="w-full flex gap-2 lg:gap-4 pt-5 pb-10 h-full">
+      <div className="home w-full px-0 lg:px-10 pb-16 2xl:px-40 bg-bgColor lg:rounded-lg md:h-screen  overflow-hidden">
+        <div className="w-full grid flex-col md:flex md:flex-row sm:overflow-y-auto gap-2 lg:gap-4 pt-5 pb-10 h-full">
           {/* LEFT SIDE CONTENT */}
-          <div className="hidden xs:w-full sm:w-1/3 lg:w-1/4 h-full sm:flex flex-col gap-4 sm:overflow-auto">
+          <div className="w-full h-full px-4 md:px-0 md:w-1/3 md:flex md:flex-col md:h-full gap-4 md:overflow-auto">
             <ProfileCard user={userInfo} />
-            <div className="block lg:hidden">
+            <div className="block lg:hidden pt-0 xs:pt-4">
               <FriendsCard friends={userInfo?.friends} />
             </div>
           </div>
+
           {/* CENTER CONTENT */}
-          <div className="flex flex-col flex-1 h-full px-4 overflow-y-auto rounded-lg">
+          <div className="flex flex-col md:w-2/3 flex-1 h-full px-4 overflow-y-auto rounded-lg">
             {loading ? (
               <Loading />
             ) : posts?.length > 0 ? (

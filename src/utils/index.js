@@ -99,7 +99,7 @@ export const getUserInfo = async (token, id) => {
 
     if (res?.message === "Authentication failed") {
       localStorage.removeItem("user");
-      window.alert("User session expired. Login again");
+      window.alert("Session expired. Please Login again");
       window.location.replace("/login");
     }
 

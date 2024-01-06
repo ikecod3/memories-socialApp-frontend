@@ -32,8 +32,8 @@ const Register = () => {
     mode: "onChange",
   });
 
+  // api call to execute user registration
   const submitRegisterData = async (data) => {
-    // console.log("Registration should be working here");
     setIsSubmitting(true);
     try {
       const res = await apiRequest({
@@ -46,6 +46,8 @@ const Register = () => {
         setErrMsg(res);
       } else {
         setErrMsg(res);
+
+        // automatically redirect the user to login page after 5secs
         setTimeout(() => {
           // window.location.replace("/login");
           navigate("/login");
@@ -75,12 +77,13 @@ const Register = () => {
           <p className="text-ascent-1 text-base font-semibold">
             Create your account
           </p>
-          {/* useed react-hook-form handleSubmit to prevent default behaviour */}
+          {/* used react-hook-form - handleSubmit to prevent default behaviour */}
           <form
             className="py-8 flex flex-col gap-5"
             onSubmit={handleSubmit(submitRegisterData)}
           >
             <div className="w-full flex flex-col lg:flex-row gap-1 md:gap-2">
+              {/* custom Text input is here to achieve re-useability and easy styling of component and similar content */}
               <TextInput
                 name="firstName"
                 label="First Name"
@@ -116,7 +119,7 @@ const Register = () => {
               styles="rounded-lg w-full"
               error={errors.email ? errors.email?.message : ""}
             />
-            {/* passowrd field */}
+            {/* password field */}
             <div className="w-full flex flex-col lg:flex-row gap-1 md:gap-2">
               <TextInput
                 name="password"
@@ -190,44 +193,19 @@ const Register = () => {
         </div>
         {/* --------------- right area --------------------- */}
 
-        <div className="hidden w-1/2 h-auto lg:flex flex-col items-center justify-center bg-[#4044a9] bg-opacity-50 bg-cover bg-no-repeat bg-blend-darken bg-[url('C:\Users\iyke6\Desktop\dev\playground\memories\client\src\assets\sharing.jpg')]">
+        <div className="hidden w-1/2 h-auto lg:flex flex-col items-center justify-end bg-[#4044a9] bg-opacity-50 bg-cover bg-center bg-no-repeat bg-blend-darken bg-[url('src/assets/reg.png')]">
           {/* image and icons div area */}
 
-          <div className="relative w-full flex items-center justify-center">
-            {/* image elememt */}
-            {/* <img
-              src={BgImage}
-              alt="Bg Image"
-              className="w-56 2xl:w-80 h-56 2xl:h-80 rounded-full object-cover bg-opacity-45"
-            /> */}
-            {/* share  icon */}
-            {/* <div className="absolute flex items-center gap-1 bg-white right-10 top-10 py-2 px-5 rounded-full">
-              <BsShare size={14} />
-              <span className="text-xs font-medium">Share</span>
-            </div> */}
-
-            {/* connect  */}
-            {/* <div className="absolute flex items-center gap-1 bg-white left-10 top-6 py-2 px-5 rounded-full">
-              <ImConnection />
-              <span className="text-xs font-medium">Connect</span>
-            </div> */}
-
-            {/* interact */}
-            {/* <div className="absolute flex items-center gap-1 bg-white bottom-2 left-10 py-2 px-5 rounded-full">
-              <AiOutlineMessage />
-              <span className="text-xs font-medium">Interact</span>
-            </div> */}
-          </div>
-
           {/* -----------text below picture area-------------- */}
-          <div className="mt-16 text-center">
-            {/* <p className="text-white text-base">
-              Connect with friends and loved ones & share memories
+
+          <div className="mb-40 text-center z-30">
+            <p className="text-[#231c62] font-semibold text-2xl">
+              Connect with friends & share memories
             </p>
-            <span className="text-sm text-white/60">
+            <span className="text-base text-[black]/60">
               capture your thoughts and favorite moments and share with the
               world
-            </span> */}
+            </span>
           </div>
         </div>
       </div>
