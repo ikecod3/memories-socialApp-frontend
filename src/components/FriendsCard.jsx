@@ -21,16 +21,18 @@ const FriendsCard = ({ friends }) => {
               key={friend?._id}
               className="w-full flex gap-4 items-center cursor-pointer"
             >
+              {/* fetch and render firends profile image */}
               <img
                 src={friends?.profileUrl ?? NoProfile}
                 alt={friends?.lastName}
                 className="object-cover w-10 h-10 rounded-full"
               />
-
+              {/* redner feteched friends information */}
               <div className="flex-1 ">
                 <p className="text-base font-medium text-ascent-1">
                   {friend?.firstName} {friend?.lastName}
                 </p>
+                {/* display fecth profession */}
                 <span className="text-sm text-ascent-2">
                   {friend?.profession ?? "No Profession"}
                 </span>

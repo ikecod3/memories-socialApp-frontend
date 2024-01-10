@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { createSlice } from "@reduxjs/toolkit";
 // import { dispatch } from "./store";
-
+// redux slice to handle login, logout and update user profile actions
 const initialState = {
   user: JSON.parse(window?.localStorage.getItem("user")) ?? {},
   edit: false,

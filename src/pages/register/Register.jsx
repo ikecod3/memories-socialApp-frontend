@@ -32,7 +32,7 @@ const Register = () => {
     mode: "onChange",
   });
 
-  // api call to execute user registration
+  // function to expose user information to an endpoint that execute user registration
   const submitRegisterData = async (data) => {
     setIsSubmitting(true);
     try {
@@ -95,6 +95,7 @@ const Register = () => {
                 styles="rounded-lg w-full"
                 error={errors.firstName ? errors.firstName?.message : ""}
               />
+              {/* last name */}
               <TextInput
                 name="lastName"
                 label="Last Name"
@@ -132,7 +133,7 @@ const Register = () => {
                 styles="rounded-lg w-full"
                 error={errors.password ? errors.password?.message : ""}
               />
-
+              {/* repeat password */}
               <TextInput
                 name="password"
                 placeholder="Password"

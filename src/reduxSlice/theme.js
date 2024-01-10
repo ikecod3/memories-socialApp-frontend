@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+// reduce slice to update and enable user toggle between dark and light  theme mode
 const initialState = {
   theme: JSON.parse(window?.localStorage.getItem("theme")) ?? "light",
 };

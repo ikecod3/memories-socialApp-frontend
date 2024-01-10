@@ -45,6 +45,7 @@ const NavBar = () => {
   return (
     <div className="w-full px-0 lg:px-10 2xl:px-40 shadow-lg sticky top-0 z-50 ">
       <div className="navBar mx-auto w-full bg-primary flex items-center justify-between py-3 md:py-4 px-4">
+        {/* setting up a  clickable navbar logo */}
         <Link to="/" className="flex gap-2 items-center">
           <div className="p-1 md:p-2 bg-[#065ad8] rounded text-white">
             <HiMiniViewfinderCircle />
@@ -54,7 +55,7 @@ const NavBar = () => {
           </span>
         </Link>
 
-        {/* search bar UI functionality */}
+        {/* search bar form UI functionality */}
         <form
           onSubmit={handleSubmit(handleSearch)}
           className="hidden md:flex items-center justify-center"
@@ -64,7 +65,7 @@ const NavBar = () => {
             styles="w-[20rem] lg:w-[28rem] rounded-l-full py-3"
             register={register("search")}
           />
-
+          {/* use the custombutton to process the search action button */}
           <CustomButton
             title="Search"
             type="submit"

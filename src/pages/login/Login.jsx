@@ -14,7 +14,7 @@ import { ImBubble, ImConnection } from "react-icons/im";
 import { apiRequest } from "../../utils";
 import { UserLogin } from "../../reduxSlice/userSlice";
 const Login = () => {
-  //   set error message
+  //   set a state to manage form error messages
   const [errMsg, setErrMsg] = useState("");
   // track submitting
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,6 +30,7 @@ const Login = () => {
   });
 
   const submitLoginData = async (data) => {
+    // expose the auth/login endpoint to a user on attempted login
     setIsSubmitting(true);
     try {
       const res = await apiRequest({

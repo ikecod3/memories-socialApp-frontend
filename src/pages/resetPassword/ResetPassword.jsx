@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 
-// add functionality if response is success disabl the send email button
+// added functionality if response is success disable the send email button
 
 import { useForm } from "react-hook-form";
 import { CustomButton, Loading, TextInput } from "../../components";
@@ -9,10 +9,10 @@ import { useState } from "react";
 import { apiRequest } from "../../utils";
 import { Link } from "react-router-dom";
 const ResetPassword = () => {
-  const [errMsg, setErrMsg] = useState();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errMsg, setErrMsg] = useState(); // handle and display registrationform error state
+  const [isSubmitting, setIsSubmitting] = useState(false); // handles if user is submitting a data
   const [sendEmail, setSendEmail] = useState(true);
-  // handles entire form and error state
+  //  using useForm react hooks that handles entire form and error state
   const {
     register,
     handleSubmit,
@@ -21,6 +21,7 @@ const ResetPassword = () => {
     mode: "onChange",
   });
 
+  // function to expose the request an endpoint to a user email for password reset
   const handleResetPassword = async (data) => {
     setIsSubmitting(true);
     try {

@@ -16,7 +16,7 @@ const App = () => {
           <Route path="/profile/:id" element={<Profile />} />
         </Route>
         {/* ------------------------------- */}
-
+        {/* non protected route-   user can access the below route withour any credentials */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/reset-password" element={<ResetPassword />} />

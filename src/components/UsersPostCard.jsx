@@ -197,6 +197,7 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
                         handleLike("/posts/like-comment/" + comment?._id);
                       }}
                     >
+                      {/* nexted comment section. check if the comment belong to the current user and redner the applicable like button color */}
                       {comment?.likes.includes(user?._id) ? (
                         <BiSolidLike size={20} color="blue" />
                       ) : (
@@ -228,6 +229,7 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
                 <div className="py-2 px-8 mt-6">
                   {/* check if we have replies, then show replies  */}
                   {comment?.replies?.length > 0 && (
+                    // if comment replies exit (greater than zero) show comments and show replies text to render the replies on the comment
                     <p
                       className="text-base text-ascent-1 cursor-pointer"
                       onClick={() =>

@@ -8,6 +8,8 @@ const AppLayout = () => {
   const location = useLocation();
   return (
     <>
+      {/* entire application layout. if a user token exit. render the app children --outlet. 
+    otherwise naviagete the attempting user back to login */}
       {user?.token ? (
         <div className="bg-primary">
           <NavBar />

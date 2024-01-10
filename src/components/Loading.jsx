@@ -1,3 +1,4 @@
+// defining laoding div for await process
 const Loading = () => {
   return (
     <div className="dots-container">

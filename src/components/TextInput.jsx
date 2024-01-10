@@ -17,6 +17,7 @@ const TextInput = React.forwardRef(
         )}
 
         <div>
+          {/* define normal html input element and defines styles */}
           <input
             type={type}
             name={name}
