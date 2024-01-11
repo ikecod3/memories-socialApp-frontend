@@ -27,7 +27,7 @@ const FriendsCard = ({ friends }) => {
                 alt={friends?.lastName}
                 className="object-cover w-10 h-10 rounded-full"
               />
-              {/* redner feteched friends information */}
+              {/* render feteched friends information */}
               <div className="flex-1 ">
                 <p className="text-base font-medium text-ascent-1">
                   {friend?.firstName} {friend?.lastName}

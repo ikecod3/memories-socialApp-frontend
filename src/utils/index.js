@@ -10,7 +10,7 @@ export const API = axios.create({
   responseType: "json",
 });
 
-// all xport function below here follows similar pattern - by making get ot post request to the server
+// all export function here follows similar pattern - by making get or post request to the server
 export const apiRequest = async ({ url, token, data, method }) => {
   try {
     const result = await API(url, {

@@ -8,11 +8,16 @@ import { CustomButton, Loading, TextInput } from "../../components";
 import { useState } from "react";
 import { apiRequest } from "../../utils";
 import { Link } from "react-router-dom";
+
+// ResetPassword Component: Handles the password reset functionality
+// --------------------------------------------------------------
 const ResetPassword = () => {
-  const [errMsg, setErrMsg] = useState(); // handle and display registrationform error state
-  const [isSubmitting, setIsSubmitting] = useState(false); // handles if user is submitting a data
-  const [sendEmail, setSendEmail] = useState(true);
-  //  using useForm react hooks that handles entire form and error state
+  // State variables to manage form submission and display of error messages
+  const [errMsg, setErrMsg] = useState(); // Manages and displays registration form error state
+  const [isSubmitting, setIsSubmitting] = useState(false); // Manages user data submission state
+  const [sendEmail, setSendEmail] = useState(true); // Controls the send email button state
+
+  // useForm hook to handle the entire form and error state
   const {
     register,
     handleSubmit,
@@ -21,16 +26,17 @@ const ResetPassword = () => {
     mode: "onChange",
   });
 
-  // function to expose the request an endpoint to a user email for password reset
+  // Function to request a password reset for a user's email
   const handleResetPassword = async (data) => {
     setIsSubmitting(true);
     try {
+      // Sending a request to the endpoint for password reset
       const res = await apiRequest({
         url: "/users/request-passwordreset",
         data: data,
         method: "POST",
       });
-      // check the response status
+      // Check the response status and update state accordingly
       if (res?.status === "failed") {
         setErrMsg(res);
       } else {
@@ -38,7 +44,7 @@ const ResetPassword = () => {
         setSendEmail(false);
       }
 
-      // when an error occured
+      // when an error occured reset submission state
       setIsSubmitting(false);
     } catch (error) {
       console.log(error);
@@ -47,7 +53,7 @@ const ResetPassword = () => {
   };
   return (
     <div className="w-full h-[100vh] bg-[black] flex items-center justify-center p-6 bg-blend-darken bg-opacity-80 bg-cover bg-no-repeat bg-[url('https://img.freepik.com/premium-vector/frustrated-man-touching-his-head-holding-phone-trying-remember-forgets-password-account_199628-198.jpg?w=826')]">
-      {/*-------------------------- */}
+      {/*--------form container------------------ */}
       <div className="bg-primary w-full md:w-1/3 2xl:w-1/4 px-6 py-8 shadow-md rounded-lg">
         <p className="text-ascent-1 text-lg font-semibold">Email Address</p>
 
@@ -55,7 +61,7 @@ const ResetPassword = () => {
           Enter the email address associated with your account
         </span>
 
-        {/* handleSUbmit is from useForm hook - It is used to manage the whole form state */}
+        {/* FORM handleSubmit is from useForm hook - It is used to manage the whole form state */}
         <form
           onSubmit={handleSubmit(handleResetPassword)}
           className="py-4 flex flex-col gap-5"
@@ -112,4 +118,5 @@ const ResetPassword = () => {
   );
 };
 
+// Export the ResetPassword component
 export default ResetPassword;

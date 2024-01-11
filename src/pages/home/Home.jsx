@@ -1,4 +1,6 @@
+/* Disable exhaustive-deps warning for React hooks to avoid unnecessary warnings */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* Disable unused-vars warning for specific imports */
 /* eslint-disable no-unused-vars */
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -30,9 +32,12 @@ import {
 import { UserLogin } from "../../reduxSlice/userSlice";
 
 const Home = () => {
+  // Redux state and dispatch setup
   const { user, edit } = useSelector((state) => state.user);
   const { posts } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
+
+  // State variables for managing friend requests, suggested friends, file uploads, errors, and posting status
   // state to set and update friend request list
   const [friendRequest, setFriendRequest] = useState([]);
 
@@ -56,7 +61,7 @@ const Home = () => {
   } = useForm({
     mode: "onChange",
   });
-
+  // Function to handle post creation.
   const handleCreatePost = async (data) => {
     // console.log("Create post should be working");
     setIsPosting(true);
@@ -98,12 +103,12 @@ const Home = () => {
       setIsPosting(false);
     }
   };
-
+  // Function to fetch posts.
   const handleFetchPost = async () => {
     await fetchPosts(user?.token, dispatch);
     setLoading(false);
   };
-
+  // Function to handle post likes.
   const handleLikePost = async (uri) => {
     // wait for the action to complete
     await likePost({
@@ -114,7 +119,7 @@ const Home = () => {
     // re-fecth the post to update the current like action on the UI
     await handleFetchPost();
   };
-
+  // Function to handle post deletion.
   const handleDeletePost = async (id) => {
     // delete the post
     await deletePost(id, user.token);
@@ -125,7 +130,7 @@ const Home = () => {
     // refresh the available pot
     await handleFetchPost();
   };
-
+  // Functions to fetch friend requests
   const fetchFriendRequests = async () => {
     try {
       const res = await apiRequest({
@@ -138,7 +143,7 @@ const Home = () => {
       console.log(error);
     }
   };
-
+  // Functions to fetch suggested friends.
   const fetchSuggestedFriends = async () => {
     try {
       const res = await apiRequest({
@@ -153,7 +158,7 @@ const Home = () => {
       console.log(error);
     }
   };
-
+  // Function to handle sending friend requests.
   const handleFriendRequest = async (id) => {
     try {
       // perform the friendreqeust action using sendFriendRequest from utils
@@ -170,7 +175,7 @@ const Home = () => {
       console.log(error);
     }
   };
-
+  // Function to accept or deny friend requests.
   const acceptFriendRequest = async (id, status) => {
     try {
       const res = await apiRequest({
@@ -190,6 +195,8 @@ const Home = () => {
       console.log(error);
     }
   };
+
+  // Function to get user information.
   const getUser = async () => {
     // invoke the getUserInfo fron utils and pass the user token
     const res = await getUserInfo(user?.token);
@@ -198,6 +205,7 @@ const Home = () => {
     dispatch(UserLogin(newData));
   };
 
+  // useEffect to handle initial data fetching.
   useEffect(() => {
     setLoading(true);
     getUser();
@@ -208,8 +216,9 @@ const Home = () => {
 
   return (
     <>
+      {/* main content wrapper for the home page */}
       <div className="home w-full px-0 lg:px-10 pb-20 2xl:px-40 bg-bgColor lg:rounded-lg h-screen overflow-hidden ">
-        {/* home content wrapper  */}
+        {/* home content wrapper/container  */}
         <Toaster />
         <div className="w-full flex gap-2 lg:gap-4 pt-5 pb-10 h-full">
           {/* LEFT SIDE CONTENT */}

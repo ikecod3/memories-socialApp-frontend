@@ -9,6 +9,7 @@ import UsersPostCard from "./UsersPostCard";
 import ReplyCard from "./ReplyCard";
 import EditProfile from "./EditProfile";
 import AdvertCard from "./AdvertCard";
+import PopConfirmation from "./PopConfirmation";
 
 export {
   TextInput,
@@ -22,4 +23,5 @@ export {
   ReplyCard,
   EditProfile,
   AdvertCard,
+  PopConfirmation,
 };

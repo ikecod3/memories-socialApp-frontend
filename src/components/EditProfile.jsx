@@ -1,23 +1,35 @@
 /* eslint-disable no-unused-vars */
+
+// React imports
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+
+// Icons
 import { MdClose } from "react-icons/md";
 import TextInput from "./TextInput";
 import { BiImages } from "react-icons/bi";
+
+// Custom Components
 import Loading from "./Loading";
 import CustomButton from "./CustomButton";
+
+// Redux Actions
 import { UpdateProfile, UserLogin } from "../reduxSlice/userSlice";
+// Utility Functions
 import { apiRequest, handleFileUpload } from "../utils";
 
 const EditProfile = () => {
+  // Redux state
   const { user } = useSelector((state) => state.user);
   //   set error message
   const [errMsg, setErrMsg] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); // dispatch tools
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // state varaible to chek if the user selected a picture on profile update modal.
   const [picture, setPicture] = useState(null);
 
+  // React Hook Form setup
   const {
     register,
     handleSubmit,
@@ -36,8 +48,10 @@ const EditProfile = () => {
       // check if  user selected a picture and await the upload
 
       const uri = picture && (await handleFileUpload(picture));
-
+      // Destructure form data
       const { firstName, lastName, location, profession } = data;
+
+      // Make an API request to update user profile endpoint
       const res = await apiRequest({
         url: "/users/update-user",
         data: {
@@ -50,6 +64,8 @@ const EditProfile = () => {
         method: "PUT",
         token: user?.token,
       });
+
+      // manage API response
       if (res?.status === "failed") {
         // if the reponse status failed .. log a message
         setErrMsg(res);
@@ -57,11 +73,12 @@ const EditProfile = () => {
         // otherwise
         setErrMsg(res);
         // destructrure the token and user from the response and dispactch as user login  details for the state.
+        // Update user information in the Redux state
         // the below action makes it possible for user to see the updated information in real time.
         const newUserData = { token: res?.token, ...res?.user };
         dispatch(UserLogin(newUserData));
-        console.log(newUserData);
 
+        //Close the edit profile form after a successful update
         // after succesfully update set the edit profile from state to false
         setTimeout(() => {
           dispatch(UpdateProfile(false));
@@ -75,17 +92,21 @@ const EditProfile = () => {
     }
   };
 
-  // enable user to close the modal
+  // Function to close the edit profile modal / enables user to close the modal
   const handleCloseModal = () => {
     dispatch(UpdateProfile(false));
   };
+
+  // Function to handle image selection
   const handleSelectImage = (ev) => {
     setPicture(ev.target.files[0]);
   };
 
   return (
     <>
+      {/* Modal Overlay */}
       <div className="fixed z-50 inset-0 overflow-y-auto">
+        {/* Modal Content */}
         <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <div className="fixed inset-0 transition-opacity">
             <div className="absolute inset-0 bg-[#000] opacity-70"></div>
@@ -117,7 +138,8 @@ const EditProfile = () => {
               className="px-4 sm:px-6 flex flex-col gap-3 2xl:gap-6"
               onSubmit={handleSubmit(updateMyProfile)}
             >
-              {/*  input */}
+              {/* Input Fields */}
+              {/* ... (re-using TextInput components) ... */}
               <TextInput
                 name="firstName"
                 placeholder="First Name"

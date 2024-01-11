@@ -1,17 +1,33 @@
+/* 
+  Disable ESLint warnings for prop types and unused variables, 
+  as these are intentionally bypassed or will be used in future iterations.
+*/
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { NoProfile } from "../assets";
 import moment from "moment";
-import { BiComment, BiLike, BiSolidLike } from "react-icons/bi";
-import { MdOutlineDeleteOutline } from "react-icons/md";
 import CommentForm from "./CommentForm";
 import Loading from "./Loading";
 import ReplyCard from "./ReplyCard";
 import { getPostComments, isImage, isVideo } from "../utils";
+import { Image } from "antd";
+import { BiComment, BiLike, BiSolidLike } from "react-icons/bi";
+import { MdOutlineDeleteOutline } from "react-icons/md";
+
+import PopConfirmation from "./PopConfirmation";
+
+/**
+ * Component representing a user's post card with associated functionalities.
+ * props {Object} user - The user object associated with the post.
+ * props {Function} deletePost - Function to delete the post.
+ * props {Function} likePost - Function to like the post.
+ * props {Object} post - The post object containing post details.
+ */
 
 const UsersPostCard = ({ post, user, deletePost, likePost }) => {
+  // State variables for managing various aspects of the post card UI
   const [showAll, setShowAll] = useState(0);
   const [showReply, setShowReply] = useState(0);
   const [comments, setComments] = useState([]);
@@ -19,6 +35,23 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
   const [replyComments, setReplyComments] = useState(0);
   const [showComments, setShowComments] = useState(0);
 
+  const [popconfirmVisible, setPopconfirmVisible] = useState(false);
+
+  const handleConfirm = () => {
+    // Handle the confirm action here
+    console.log("Confirmed!");
+    setPopconfirmVisible(false);
+  };
+
+  const handleCancel = () => {
+    // Handle the cancel action here
+    setPopconfirmVisible(false);
+  };
+
+  /**
+   * Fetches comments for a specific post.
+   * using the post ID.
+   */
   const getComments = async (id) => {
     setReplyComments(0);
     const results = await getPostComments(id);
@@ -27,6 +60,10 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
     setLoading(false);
   };
 
+  /**
+   * Handles the like action for a post.
+   * using the URI for the like action.
+   */
   const handleLike = async (uri) => {
     await likePost(uri);
     await getComments(post?._id);
@@ -34,8 +71,9 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
 
   return (
     <div className="mb-4 bg-primary p-4 rounded-xl shadow-md">
+      {/* Post header section */}
       <div className="flex gap-4 items-center mb-2 ">
-        {/* profile image */}
+        {/* User profile image */}
         <Link to={"/profile/" + post?.userId?._id}>
           <img
             src={post?.userId?.profileUrl ?? NoProfile}
@@ -58,14 +96,15 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
           </span>
         </div>
       </div>
-      {/* -------------------- */}
+      {/* ------Post content section-------------- */}
       <div>
-        {/* show complete /sliced post description */}
+        {/* show complete or sliced post description */}
         <p className="text-ascent-2 text-justify">
           {showAll === post?._id
             ? post?.description
             : post?.description.slice(0, 300)}
 
+          {/* Show more/less link for long descriptions */}
           {/* when the description length is more than 300 characters */}
 
           {post?.description?.length > 301 &&
@@ -86,13 +125,13 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
             ))}
         </p>
 
-        {/* optional chaining to check if the post has an image before attempting to render an <img> element. 
-        If the post.image property is truthy, the image is rendered with the specified 
-        */}
+        {/* Render post image or video */}
+        {/* optional chaining to check if the post has an image before attempting to render an <img> element. If the post.image property is truthy, the image is rendered with the specified
+         */}
         {post?.image && (
           <>
             {isImage(post.image) ? (
-              <img
+              <Image
                 src={post?.image}
                 alt="post image"
                 className="w-full mt-3 rounded-lg"
@@ -105,12 +144,23 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
                 className="w-full mt-3 rounded-lg"
               />
             ) : (
-              // Handle other cases (unsupported file types) as needed
+              // Handle other cases (unsupported file types)
               <p>Unsupported file type</p>
             )}
           </>
         )}
       </div>
+
+      {popconfirmVisible && (
+        <PopConfirmation
+          onConfirm={() => deletePost(post?._id)}
+          onCancel={handleCancel}
+          message="Do you want to delete this post?"
+          confirmText="Yes"
+          cancelText="no"
+          onblur={handleCancel}
+        />
+      )}
       {/* like comment and delete post area */}
       <div className="mt-4 flex justify-between items-center px-3 py-2 text-ascent-1 text-base !xs:text-[5px] border-t border-[#66666645]">
         {/* check if the likes include current userId, show a like icon with color red otherwise show outline like icon  */}
@@ -136,14 +186,14 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
           <BiComment size={20} />
           {post?.comments?.length} comments
         </p>
-
         {/* delete function ui rendering */}
         {/* check if the post belong to the current user berfore delete function is activated */}
 
         {user?._id == post?.userId._id && (
           <div
             className="flex flex-col sm:flex-row justify-center  items-center text-base text-ascent-2 gap-1 cursor-pointer"
-            onClick={() => deletePost(post?._id)}
+            // onClick={() => deletePost(post?._id)}
+            onClick={() => setPopconfirmVisible(true)}
           >
             <MdOutlineDeleteOutline size={20} />
             <span>Delete</span>
@@ -247,7 +297,7 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
                   {/* unveil show more replies */}
                   {showReply === comment?.replies?._id &&
                     comment?.replies?.map((reply) => (
-                      // map the replies over reply card
+                      // map the replies over reply card component
                       <ReplyCard
                         key={reply?._id}
                         reply={reply}
@@ -266,6 +316,7 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
               </div>
             ))
           ) : (
+            // Display a message if there are no comments
             <span className="flex text-sm py-4 text-ascent-2 text-center">
               No Comments, be first to comment
             </span>

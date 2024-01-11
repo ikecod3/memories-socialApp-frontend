@@ -1,8 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
+
+// React and Redux imports
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
+// Component imports
 import {
   AdvertCard,
   EditProfile,
@@ -11,18 +15,28 @@ import {
   ProfileCard,
   UsersPostCard,
 } from "../../components";
+
+// Utility functions import
 import { deletePost, fetchPosts, getUserInfo, likePost } from "../../utils";
 
 const Profile = () => {
+  // Extracting user id from the URL parameters
   const { id } = useParams();
+
+  // Redux state and dispatch setup
   const dispatch = useDispatch();
+
+  // State for user information and loading status
   const { user, edit } = useSelector((state) => state.user);
   const { posts } = useSelector((state) => state.posts);
 
   const [userInfo, setUserInfo] = useState(user);
   const [loading, setLoading] = useState(false);
 
+  // URI for fetching user posts
   const uri = "/posts/get-user-post/" + id;
+
+  // Function to fetch user information
   const getUserProfile = async () => {
     const res = await getUserInfo(user?.token, id);
     setUserInfo(res);
@@ -32,7 +46,7 @@ const Profile = () => {
     await fetchPosts(user.token, dispatch, uri);
     setLoading(false);
   };
-  // function to handle psot deletion
+  // function to handle post deletion
   const handleDelete = async (id) => {
     await deletePost(id, user.token);
     await getPosts();
@@ -50,6 +64,7 @@ const Profile = () => {
   }, [id]);
   return (
     <>
+      {/* Main continer */}
       <div className="home w-full px-0 lg:px-10 pb-16 2xl:px-40 bg-bgColor lg:rounded-lg md:h-screen  overflow-hidden">
         <div className="w-full grid flex-col md:flex md:flex-row sm:overflow-y-auto gap-2 lg:gap-4 pt-5 pb-10 h-full">
           {/* LEFT SIDE CONTENT */}
@@ -94,7 +109,7 @@ const Profile = () => {
       </div>
 
       {/* MODAL CLASS */}
-      {/* show modal when is edit is set to true - edit is trigger from the user state. */}
+      {/* show modal when is edit is set to true - edit is triggered from the user state. */}
       {edit && <EditProfile />}
     </>
   );

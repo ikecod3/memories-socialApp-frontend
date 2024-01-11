@@ -4,14 +4,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { NoProfile } from "../assets";
-// import { LiaEditSolid } from "react-icons/lia";
-import { BsInstagram, BsPersonFillAdd } from "react-icons/bs";
-import { FaFacebookSquare, FaTwitterSquare, FaUserEdit } from "react-icons/fa";
+
+import { BsPersonFillAdd } from "react-icons/bs";
+import { FaUserEdit } from "react-icons/fa";
 import { CiLocationOn } from "react-icons/ci";
 import { HiOutlineCheckBadge } from "react-icons/hi2";
 import moment from "moment";
 import { UpdateProfile } from "../reduxSlice/userSlice";
 import { ImBriefcase } from "react-icons/im";
+import {
+  BehanceOutlined,
+  LinkedinOutlined,
+  YoutubeOutlined,
+} from "@ant-design/icons";
+import { Space, Tag } from "antd";
 
 const ProfileCard = ({ user }) => {
   const dispatch = useDispatch();
@@ -25,7 +31,7 @@ const ProfileCard = ({ user }) => {
 
   return (
     <div>
-      <div className="w-full bg-primary flex flex-col items-center shadow-sm rounded-xl px-6 py-4">
+      <div className="w-full bg-primary flex flex-col items-center shadow-sm rounded-xl px-6 py-4 mb-2">
         <div className="w-full flex items-center justify-between border-b pb-5 gap-8 border-[#66666645]">
           {/* profle image and profession */}
           <Link to={"/profile/" + user?._id} className="flex gap-2">
@@ -113,24 +119,36 @@ const ProfileCard = ({ user }) => {
           </div>
         </div>
 
-        {/* --------------social profiles--------------- */}
-        {/* <div className="w-full flex flex-col gap-4 py-4 pb-6">
-          <p className="text-ascent-1 text-lg font-semibold">Social Profile</p> */}
-        {/* iconsssssssssssssssss */}
-
-        {/* <div className="flex gap-2 items-center text-ascent-2 cursor-pointer">
-            <BsInstagram className="text-xl text-ascent-1" />
-            <span>Instagram</span>
-          </div>
-          <div className="flex gap-2 items-center text-ascent-2 cursor-pointer">
-            <FaTwitterSquare className="text-xl text-ascent-1" />
-            <span>X (Twitter)</span>
-          </div>
-          <div className="flex gap-2 items-center text-ascent-2 cursor-pointer">
-            <FaFacebookSquare className="text-xl text-ascent-1" />
-            <span>Facebook</span>
-          </div> */}
-        {/* </div> */}
+        <div className="w-full flex items-center justify-center flex-col gap-4 py-4 sm:pb-0">
+          <Space
+            size={[0, 9]}
+            wrap
+            className="flex items-center sm:space-x-2 justify-start sm:justify-center cursor-pointer "
+          >
+            <Tag
+              bordered
+              icon={<BehanceOutlined />}
+              color="#000e"
+              className="cursor-pointer text-xs sm:text-sm"
+            >
+              Behance
+            </Tag>
+            <Tag
+              icon={<YoutubeOutlined />}
+              color="#cd201f"
+              className="cursor-pointer text-xs sm:hidden"
+            >
+              Youtube
+            </Tag>
+            <Tag
+              icon={<LinkedinOutlined />}
+              color="#55acee"
+              className="cursor-pointer text-xs sm:text-sm"
+            >
+              LinkedIn
+            </Tag>
+          </Space>
+        </div>
       </div>
     </div>
   );

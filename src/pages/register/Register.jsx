@@ -1,27 +1,28 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
-// import { FcMindMap } from "react-icons/fc";
+
 import { HiMiniViewfinderCircle } from "react-icons/hi2";
+// Importing custom components and utilities
 import { CustomButton, Loading, TextInput } from "../../components";
 import { useForm } from "react-hook-form";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { BgImage } from "../../assets";
-import { BsChatSquareHeart, BsShare } from "react-icons/bs";
-import { AiOutlineInteraction, AiOutlineMessage } from "react-icons/ai";
-import { ImBubble, ImConnection } from "react-icons/im";
+
+// Utility function for making API requests
 import { apiRequest } from "../../utils";
 
+// component for the Register page
 const Register = () => {
-  //   set error message
+  // State to store error message and display where required
   const [errMsg, setErrMsg] = useState("");
-  // track submitting
+  // State to track submission statusng
   const [isSubmitting, setIsSubmitting] = useState(false);
   // dispatch action from state when fro user login
   const dispatch = useDispatch();
+  // Navigation hook for redirecting
   const navigate = useNavigate();
-  // handle the entire form data and error state
+  //Form handling using react-hook-form
   const {
     register,
     handleSubmit,
@@ -32,29 +33,30 @@ const Register = () => {
     mode: "onChange",
   });
 
-  // function to expose user information to an endpoint that execute user registration
+  // Function to submit registration data to the server
   const submitRegisterData = async (data) => {
     setIsSubmitting(true);
+    // Make API request for user registration
     try {
       const res = await apiRequest({
         url: "/auth/register",
         data: data,
         method: "POST",
       });
-      // check the response status
+      // Check the response status and update error messa
       if (res?.status === "failed") {
         setErrMsg(res);
       } else {
         setErrMsg(res);
 
-        // automatically redirect the user to login page after 5secs
+        // automatically redirect the user to the login page after 5secs
         setTimeout(() => {
           // window.location.replace("/login");
           navigate("/login");
         }, 5000);
       }
 
-      // when an error occured
+      // Reset submission status
       setIsSubmitting(false);
     } catch (error) {
       console.log(error);
@@ -63,9 +65,11 @@ const Register = () => {
 
   return (
     <div className="bg-primary mx-auto w-full h-[100vh] flex items-center justify-center p-6 ">
+      {/* main content container */}
       <div className="max-w-6xl flex w-full bg-primary rounded-xl md:2/3 h-fit lg:h-full 2xl:h-5/6 py-8 lg:py-0 overflow-hidden shadow-lg">
-        {/* left area */}
+        {/* left area with registrattion form */}
         <div className="flex flex-col justify-center w-full h-full lg:w-1/2 p-10 2xl:px-20 ">
+          {/* Logo and app name */}
           <div className="w-full flex gap-2 items-center mb-6">
             <div className="p-2 bg-[#065ad8] rounded text-white">
               <HiMiniViewfinderCircle />
@@ -74,9 +78,12 @@ const Register = () => {
               Memories
             </span>
           </div>
+          {/* Registration form header */}
           <p className="text-ascent-1 text-base font-semibold">
             Create your account
           </p>
+
+          {/* Registration form element */}
           {/* used react-hook-form - handleSubmit to prevent default behaviour */}
           <form
             className="py-8 flex flex-col gap-5"
@@ -84,6 +91,7 @@ const Register = () => {
           >
             <div className="w-full flex flex-col lg:flex-row gap-1 md:gap-2">
               {/* custom Text input is here to achieve re-useability and easy styling of component and similar content */}
+              {/* Setting up our Custom Text input for first name */}
               <TextInput
                 name="firstName"
                 label="First Name"
@@ -95,7 +103,7 @@ const Register = () => {
                 styles="rounded-lg w-full"
                 error={errors.firstName ? errors.firstName?.message : ""}
               />
-              {/* last name */}
+              {/* Setting up our Custom Text input for last name */}
               <TextInput
                 name="lastName"
                 label="Last Name"
@@ -108,7 +116,7 @@ const Register = () => {
                 error={errors.lastName ? errors.lastName?.message : ""}
               />
             </div>
-            {/* email input */}
+            {/* Setting up our Custom Text input for email input */}
             <TextInput
               name="email"
               placeholder="email@example.com"
@@ -120,7 +128,7 @@ const Register = () => {
               styles="rounded-lg w-full"
               error={errors.email ? errors.email?.message : ""}
             />
-            {/* password field */}
+            {/* Setting up our Custom Text input for password fields */}
             <div className="w-full flex flex-col lg:flex-row gap-1 md:gap-2">
               <TextInput
                 name="password"
@@ -133,7 +141,7 @@ const Register = () => {
                 styles="rounded-lg w-full"
                 error={errors.password ? errors.password?.message : ""}
               />
-              {/* repeat password */}
+              {/* Setting up our Custom Text input for repeat password */}
               <TextInput
                 name="password"
                 placeholder="Password"
@@ -181,7 +189,7 @@ const Register = () => {
               />
             )}
           </form>
-
+          {/* Login link */}
           <p className="text-ascent-2 text-sm text-center">
             Already have an account?
             <Link
@@ -192,7 +200,7 @@ const Register = () => {
             </Link>
           </p>
         </div>
-        {/* --------------- right area --------------------- */}
+        {/* ----- right area with background image-------- */}
 
         <div className="hidden w-1/2 h-auto lg:flex flex-col items-center justify-end bg-[#4044a9] bg-opacity-50 bg-cover bg-center bg-no-repeat bg-blend-darken bg-[url('/assets/reg.png')]">
           {/* image and icons div area */}
