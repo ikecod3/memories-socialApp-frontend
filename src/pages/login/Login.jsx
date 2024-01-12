@@ -1,17 +1,21 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 
-import { HiMiniViewfinderCircle } from "react-icons/hi2";
 import { CustomButton, Loading, TextInput } from "../../components";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { BgImage } from "../../assets";
+
+// importing react icons
 import { BsShare } from "react-icons/bs";
 import { AiOutlineMessage } from "react-icons/ai";
 import { ImBubble, ImConnection } from "react-icons/im";
-import { apiRequest } from "../../utils";
+import { HiMiniViewfinderCircle } from "react-icons/hi2";
+
+// Utility function for making API requests
+import { apiRequest, validatePassword, validateEmail } from "../../utils";
 import { UserLogin } from "../../reduxSlice/userSlice";
 
 /**
@@ -95,20 +99,21 @@ const Login = () => {
             onSubmit={handleSubmit(submitLoginData)}
           >
             {/* custom Text input is here to achieve re-useability and easy styling of component and similar content */}
-            {/* email input */}
+            {/* setting up custom TextInput for email Input */}
             <TextInput
               name="email"
-              placeholder="email@example.com"
+              placeholder="username@example.com"
               type="email"
               label="Email Address"
               register={register("email", {
                 required: "Email address is required",
+                validate: validateEmail,
               })}
               styles="rounded-lg w-full"
               labelStyles="ml-2"
               error={errors.email ? errors.email?.message : ""}
             />
-            {/* passowrd field */}
+            {/* setting up custom TextInput for password field */}
 
             <TextInput
               name="password"
@@ -123,13 +128,14 @@ const Login = () => {
               error={errors.password ? errors.password?.message : ""}
             />
 
-            {/* forget password */}
+            {/* Link to forget password */}
             <Link
               to="/reset-password"
               className="text-sm text-blue font-semibold text-right"
             >
               Forgot password ?
             </Link>
+
             {/* display error message if any */}
             {errMsg?.message && (
               <span
@@ -165,8 +171,8 @@ const Login = () => {
             </Link>
           </p>
         </div>
-        {/* --------------- right area of the login page--------------------- */}
 
+        {/* ------ right area of the login page  ----------- */}
         <div className="hidden w-1/2 h-auto lg:flex flex-col items-center justify-center bg-blue bg-opacity-90">
           {/* image and icons div area/section */}
           <div className="relative w-full flex items-center justify-center">

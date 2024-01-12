@@ -13,12 +13,6 @@
   scrollbar-width: none;
 }
 
-/* .NavBar {
-  position: sticky;
-  top: 0px;
-  z-index: 49;
-} */
-
 .dots-container {
   display: flex;
   align-items: center;

@@ -41,7 +41,7 @@ const Profile = () => {
     const res = await getUserInfo(user?.token, id);
     setUserInfo(res);
   };
-  // function to hnadle re-fectching of posts to ensure user see an updated data each time an action is performed on the UI
+  // function to handle re-fectching of posts to ensure user see an updated data each time an action is performed on the UI
   const getPosts = async () => {
     await fetchPosts(user.token, dispatch, uri);
     setLoading(false);
@@ -56,6 +56,7 @@ const Profile = () => {
     await likePost({ uri: uri, token: user?.token });
     await getPosts();
   };
+
   // useEffect react hook to perform some action after initial rendering
   useEffect(() => {
     setLoading(true);

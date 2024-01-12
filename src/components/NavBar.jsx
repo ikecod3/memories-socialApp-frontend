@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import TextInput from "./TextInput";
 import CustomButton from "./CustomButton";
 import { BsMoonStars, BsSunFill } from "react-icons/bs";
-import { IoMdNotificationsOutline } from "react-icons/io";
+// import { IoMdNotificationsOutline } from "react-icons/io";
 import { SetTheme } from "../reduxSlice/theme";
 import { logout } from "../reduxSlice/userSlice";
 import { fetchPosts } from "../utils";
@@ -73,6 +73,11 @@ const NavBar = () => {
           />
         </form>
 
+        {/* display a Hello, with lastName of the curent user  */}
+        <div className="hidden xl:flex text-xl text-ascent-2 font-semibold cursor-pointer">
+          Hello, {user.lastName}
+        </div>
+
         {/* icons for theme toggler, ntoifications and logout */}
         <div className="flex gap-4 space-x-4 items-center text-ascent-1 text-md md:text-xl">
           {/* switching the  toggle icon */}
@@ -80,10 +85,10 @@ const NavBar = () => {
             {theme === "light" ? <BsMoonStars /> : <BsSunFill />}
           </button>
 
-          {/* some dummy notifications icons */}
-          <div className="hidden lg:flex">
+          {/* some dummy notifications icons for future app upgrade */}
+          {/* <div className="hidden lg:flex">
             <IoMdNotificationsOutline size={28} />
-          </div>
+          </div> */}
 
           {/* logout button */}
           <div>

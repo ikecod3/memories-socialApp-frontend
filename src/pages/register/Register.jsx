@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 // Utility function for making API requests
-import { apiRequest } from "../../utils";
+import { apiRequest, validatePassword, validateEmail } from "../../utils";
 
 // component for the Register page
 const Register = () => {
@@ -124,11 +124,12 @@ const Register = () => {
               label="Email Address"
               register={register("email", {
                 required: "Email address is required",
+                validate: validateEmail,
               })}
               styles="rounded-lg w-full"
               error={errors.email ? errors.email?.message : ""}
             />
-            {/* Setting up our Custom Text input for password fields */}
+            {/* Setting up the Custom Text input for password fields */}
             <div className="w-full flex flex-col lg:flex-row gap-1 md:gap-2">
               <TextInput
                 name="password"
@@ -137,16 +138,17 @@ const Register = () => {
                 label="Password"
                 register={register("password", {
                   required: "Password is required",
+                  validate: validatePassword,
                 })}
                 styles="rounded-lg w-full"
                 error={errors.password ? errors.password?.message : ""}
               />
-              {/* Setting up our Custom Text input for repeat password */}
+              {/* Setting up the Custom Text input for repeat password */}
               <TextInput
                 name="password"
                 placeholder="Password"
                 type="password"
-                label="Confrim Password"
+                label="Confirm Password"
                 register={register("cPassword", {
                   validate: (value) => {
                     const { password } = getValues();
@@ -211,7 +213,7 @@ const Register = () => {
             <p className="text-[#fff] font-semibold text-2xl">
               Connect with friends & share memories
             </p>
-            <span className="text-base text-[black]/60">
+            <span className="text-base text-[#fff]/60">
               capture your thoughts and favorite moments and share with the
               world
             </span>

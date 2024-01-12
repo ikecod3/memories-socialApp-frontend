@@ -28,6 +28,7 @@ import {
   handleFileUpload,
   likePost,
   sendFriendRequest,
+  viewedUserProfile,
 } from "../../utils";
 import { UserLogin } from "../../reduxSlice/userSlice";
 
@@ -61,6 +62,7 @@ const Home = () => {
   } = useForm({
     mode: "onChange",
   });
+
   // Function to handle post creation.
   const handleCreatePost = async (data) => {
     // console.log("Create post should be working");
@@ -103,11 +105,13 @@ const Home = () => {
       setIsPosting(false);
     }
   };
+
   // Function to fetch posts.
   const handleFetchPost = async () => {
     await fetchPosts(user?.token, dispatch);
     setLoading(false);
   };
+
   // Function to handle post likes.
   const handleLikePost = async (uri) => {
     // wait for the action to complete
@@ -119,6 +123,7 @@ const Home = () => {
     // re-fecth the post to update the current like action on the UI
     await handleFetchPost();
   };
+
   // Function to handle post deletion.
   const handleDeletePost = async (id) => {
     // delete the post
@@ -130,7 +135,8 @@ const Home = () => {
     // refresh the available pot
     await handleFetchPost();
   };
-  // Functions to fetch friend requests
+
+  // Function to fetch friend requests
   const fetchFriendRequests = async () => {
     try {
       const res = await apiRequest({
@@ -143,7 +149,8 @@ const Home = () => {
       console.log(error);
     }
   };
-  // Functions to fetch suggested friends.
+
+  // Function to fetch suggested friends.
   const fetchSuggestedFriends = async () => {
     try {
       const res = await apiRequest({
@@ -158,6 +165,7 @@ const Home = () => {
       console.log(error);
     }
   };
+
   // Function to handle sending friend requests.
   const handleFriendRequest = async (id) => {
     try {
@@ -175,6 +183,7 @@ const Home = () => {
       console.log(error);
     }
   };
+
   // Function to accept or deny friend requests.
   const acceptFriendRequest = async (id, status) => {
     try {
@@ -194,6 +203,14 @@ const Home = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+  // function to handle user profile view count
+  const handleViewProfile = async (id) => {
+    // the the profile belongs to the current user do nothing
+    if (id === user?._id) {
+      return;
+    }
+    await viewedUserProfile(user?.token, id);
   };
 
   // Function to get user information.
@@ -217,10 +234,11 @@ const Home = () => {
   return (
     <>
       {/* main content wrapper for the home page */}
-      <div className="home w-full px-0 lg:px-10 pb-20 2xl:px-40 bg-bgColor lg:rounded-lg h-screen overflow-hidden ">
+      <Toaster />
+      <div className="home w-full px-0 lg:px-10 pb-16 2xl:px-40 bg-bgColor lg:rounded-lg h-screen overflow-hidden fixed">
         {/* home content wrapper/container  */}
-        <Toaster />
-        <div className="w-full flex gap-2 lg:gap-4 pt-5 pb-10 h-full">
+
+        <div className="w-full flex gap-2 lg:gap-4 pt-4 pb-10 h-full">
           {/* LEFT SIDE CONTENT */}
           <div className="hidden w-1/3 lg:w-1/4 h-full md:flex flex-col gap-4 overflow-auto">
             <ProfileCard user={user} />
@@ -343,6 +361,7 @@ const Home = () => {
                     user={user}
                     deletePost={handleDeletePost}
                     likePost={handleLikePost}
+                    viewProfile={handleViewProfile}
                   />
                 ))
               ) : (
@@ -462,7 +481,6 @@ const Home = () => {
         </div>
       </div>
       {/* MODAL CLASS */}
-
       {/* show modal when is edit is set to true - edit is trigger from the user state. */}
       {edit && <EditProfile />}
     </>

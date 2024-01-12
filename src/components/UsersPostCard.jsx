@@ -26,7 +26,7 @@ import PopConfirmation from "./PopConfirmation";
  * props {Object} post - The post object containing post details.
  */
 
-const UsersPostCard = ({ post, user, deletePost, likePost }) => {
+const UsersPostCard = ({ post, user, deletePost, likePost, viewProfile }) => {
   // State variables for managing various aspects of the post card UI
   const [showAll, setShowAll] = useState(0);
   const [showReply, setShowReply] = useState(0);
@@ -37,20 +37,13 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
 
   const [popconfirmVisible, setPopconfirmVisible] = useState(false);
 
-  const handleConfirm = () => {
-    // Handle the confirm action here
-    console.log("Confirmed!");
-    setPopconfirmVisible(false);
-  };
-
   const handleCancel = () => {
     // Handle the cancel action here
     setPopconfirmVisible(false);
   };
 
   /**
-   * Fetches comments for a specific post.
-   * using the post ID.
+   * Fetches comments for a specific post...using the post ID.
    */
   const getComments = async (id) => {
     setReplyComments(0);
@@ -72,7 +65,7 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
   return (
     <div className="mb-4 bg-primary p-4 rounded-xl shadow-md">
       {/* Post header section */}
-      <div className="flex gap-4 items-center mb-2 ">
+      <div className="flex gap-4 items-center mb-2">
         {/* User profile image */}
         <Link to={"/profile/" + post?.userId?._id}>
           <img
@@ -83,7 +76,7 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
         </Link>
         {/* profile name/image and location and when post was created */}
         <div className="w-full flex justify-between">
-          <div className="">
+          <div className="" onClick={() => viewProfile(post?.userId?._id)}>
             <Link to={"/profile/" + post?.userId?._id}>
               <p className="font-medium textlg text-ascent-1">
                 {post?.userId?.firstName} {post?.userId?.lastName}
@@ -158,7 +151,6 @@ const UsersPostCard = ({ post, user, deletePost, likePost }) => {
           message="Do you want to delete this post?"
           confirmText="Yes"
           cancelText="no"
-          onblur={handleCancel}
         />
       )}
       {/* like comment and delete post area */}
