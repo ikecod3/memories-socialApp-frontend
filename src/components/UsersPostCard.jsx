@@ -187,8 +187,11 @@ const UsersPostCard = ({ post, user, deletePost, likePost, viewProfile }) => {
             // onClick={() => deletePost(post?._id)}
             onClick={() => setPopconfirmVisible(true)}
           >
-            <MdOutlineDeleteOutline size={20} />
-            <span>Delete</span>
+            <MdOutlineDeleteOutline
+              size={20}
+              className="hidden sm:inline-block"
+            />
+            <span className="font-medium align-middle">Delete</span>
           </div>
         )}
       </div>

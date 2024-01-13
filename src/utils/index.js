@@ -235,7 +235,7 @@ export const validatePassword = (value) => {
   // For example, check if the password contains a combination of uppercase, lowercase, numbers, and special characters
   return (
     valid ||
-    "Password must be strong. Minimum of 6 chars contaning Alphanumeric, Symbols, an Upper and Lowercase, "
+    "Password must be strong. Minimum of 6 chars contaning Alphanumeric, Symbols, an Upper and Lowercase. "
   );
 };
 // Custom email validation function
