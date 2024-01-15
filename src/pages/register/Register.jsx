@@ -12,6 +12,8 @@ import { useDispatch } from "react-redux";
 // Utility function for making API requests
 import { apiRequest, validatePassword, validateEmail } from "../../utils";
 
+import ProgressBar from "@badrap/bar-of-progress";
+
 // component for the Register page
 const Register = () => {
   // State to store error message and display where required
@@ -32,6 +34,21 @@ const Register = () => {
   } = useForm({
     mode: "onChange",
   });
+  const progress = new ProgressBar({
+    // The size (height) of the progress bar.
+    // Numeric values get converted to px.
+    size: 5,
+
+    // Color of the progress bar.
+    color: "#29e",
+
+    // Class name used for the progress bar element.
+    className: "bar-of-progress",
+
+    // How many milliseconds to wait before the progress bar
+    // animation starts after calling .start().
+    delay: 80,
+  });
 
   // Function to submit registration data to the server
   const submitRegisterData = async (data) => {
@@ -48,14 +65,13 @@ const Register = () => {
         setErrMsg(res);
       } else {
         setErrMsg(res);
-
+        progress.start();
         // automatically redirect the user to the login page after 5secs
         setTimeout(() => {
-          // window.location.replace("/login");
+          progress.finish();
           navigate("/login");
         }, 5000);
       }
-
       // Reset submission status
       setIsSubmitting(false);
     } catch (error) {
@@ -66,10 +82,12 @@ const Register = () => {
   return (
     <div className="bg-primary mx-auto w-full h-[100vh] flex items-center justify-center p-6 ">
       {/* main content container */}
+
       <div className="max-w-6xl flex w-full bg-primary rounded-xl md:2/3 h-fit lg:h-full 2xl:h-5/6 py-8 lg:py-0 overflow-hidden shadow-lg">
         {/* left area with registrattion form */}
         <div className="flex flex-col justify-center w-full h-full lg:w-1/2 p-10 2xl:px-20 ">
           {/* Logo and app name */}
+          <p className="bar-of-progess"></p>
           <div className="w-full flex gap-2 items-center mb-6">
             <div className="p-2 bg-[#065ad8] rounded text-white">
               <HiMiniViewfinderCircle />
