@@ -122,6 +122,7 @@ const Login = () => {
               label="Password"
               register={register("password", {
                 required: "Password is required",
+                validate: validatePassword,
               })}
               styles="rounded-lg w-full"
               labelStyles="ml-2"
